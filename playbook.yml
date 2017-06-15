@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+  gather_facts: false
+  
+  user: ubuntu
+  become: true
+  become_user: root
+  
+  roles:
+    - python-simplejson # required for ansible
+    - python3-pip-virtualenv
+    - nginx
+    - xlsform

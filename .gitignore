@@ -1,0 +1,8 @@
+# vagrant home
+.vagrant
+
+# ansible retry logs
+*.retry
+
+# virtualbox console logs
+*.log

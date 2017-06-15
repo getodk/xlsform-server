@@ -1,0 +1,58 @@
+
+- name: check django home
+  stat:
+    path: '{{ django_home }}/'
+  register: dh
+
+- name: create project
+  command: '{{ virtualenv_home }}/bin/django-admin.py startproject {{ django_name }} {{ project_home }}'
+  when: dh.stat.exists != true
+
+- name: template settings.py
+  template: 
+    src: settings.py.j2
+    dest: '{{ django_home }}/settings.py'
+
+- name: template gunicorn
+  template: 
+    src: gunicorn.service.j2
+    dest: /etc/systemd/system/gunicorn.service
+
+- name: template xlsform
+  template: 
+    src: xlsform.j2
+    dest: '/etc/nginx/sites-available/{{ project_name }}'
+
+- name: create nginx link
+  file:
+    src: '/etc/nginx/sites-available/{{ project_name }}'
+    dest: '/etc/nginx/sites-enabled/{{ project_name }}'
+    state: link
+
+- name: fix permissions
+  file:
+    path: '{{ project_home }}'
+    state: directory
+    recurse: yes
+    owner: ubuntu
+    group: ubuntu
+
+- name: run migrations
+  command: '{{ virtualenv_home }}/bin/python {{ project_home }}/manage.py migrate'
+
+- name: run collectstatic
+  command: '{{ virtualenv_home }}/bin/python {{ project_home }}/manage.py collectstatic --noinput'
+  when: dh.stat.exists != true
+
+- name: enable and restart gunicorn
+  systemd:
+    name: gunicorn
+    enabled: yes
+    daemon_reload: yes
+    state: started
+
+- name: enable and restart nginx
+  service: 
+    name: nginx 
+    enabled: yes
+    state: restarted 
