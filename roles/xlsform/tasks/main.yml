@@ -4,14 +4,17 @@
     path: '{{ django_home }}/'
   register: dh
 
-- name: create project
-  command: '{{ virtualenv_home }}/bin/django-admin.py startproject {{ django_name }} {{ project_home }}'
-  when: dh.stat.exists != true
 
-- name: template settings.py
-  template: 
-    src: settings.py.j2
-    dest: '{{ django_home }}/settings.py'
+- name: create project
+  git:
+    repo: "https://github.com/czue/xlsform-example-project.git"
+    dest: "{{ project_home }}"
+    force: yes
+    recursive: yes
+    update: yes
+
+- name: install python dependencies
+  command: '{{ virtualenv_home }}/bin/pip install -r {{ project_home }}/requirements.txt'
 
 - name: template gunicorn
   template: 

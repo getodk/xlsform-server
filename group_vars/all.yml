@@ -1,10 +1,10 @@
 server_name: 192.168.255.10
 
-project_name: xlsform
+project_name: xlsform_example_project
 project_home: '/home/ubuntu/{{ project_name }}'
 
 virtualenv_name: xlsform-env
 virtualenv_home: '/home/ubuntu/{{ project_name }}/{{ virtualenv_name }}'
 
-django_name: xlsform
+django_name: xlsform_example_project
 django_home: '/home/ubuntu/{{ project_name }}/{{ django_name }}'
