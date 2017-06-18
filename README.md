@@ -16,3 +16,8 @@ Please don't use this server in production. It is not configured to be robust or
 1. Clone this repository.
 1. Run `vagrant up`.
 1. After the server is provisioned, the server will be at [192.168.255.10](http://192.168.255.10)
+
+## TODOs
+
+1. Replace czue repo with odk repo after PRs are merged
+1. gunicorn needs to be killed/restarted manually for config changes to take effect
