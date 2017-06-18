@@ -26,5 +26,4 @@
     virtualenv: '{{ virtualenv_home }}'
     virtualenv_python: python3
   with_items:
-    - django
     - gunicorn
