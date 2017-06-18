@@ -6,3 +6,6 @@
 
 # virtualbox console logs
 *.log
+
+# pycharm
+.idea
