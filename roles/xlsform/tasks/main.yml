@@ -52,7 +52,7 @@
     name: gunicorn
     enabled: yes
     daemon_reload: yes
-    state: started
+    state: restarted
 
 - name: enable and restart nginx
   service: 

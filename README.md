@@ -20,5 +20,4 @@ Please don't use this server in production. It is not configured to be robust or
 ## Known Issues / todos
 
 1. Replace reference czue repo with odk repo after PRs are merged
-1. gunicorn needs to be killed/restarted manually for config changes to take effect
 1. nginx configs are not cleaned up when removed
