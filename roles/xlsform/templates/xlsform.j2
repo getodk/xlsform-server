@@ -4,11 +4,11 @@ server {
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
-        root {{ project_home }};
+        root {{ source_home }};
     }
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:{{ project_home }}/{{ django_name }}.sock;
+        proxy_pass http://unix:{{ source_home }}/{{ django_name }}.sock;
     }
 }

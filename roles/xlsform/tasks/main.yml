@@ -8,13 +8,13 @@
 - name: create project
   git:
     repo: "https://github.com/czue/xlsform-example-project.git"
-    dest: "{{ project_home }}"
+    dest: "{{ source_home }}"
     force: yes
     recursive: yes
     update: yes
 
 - name: install python dependencies
-  command: '{{ virtualenv_home }}/bin/pip install -r {{ project_home }}/requirements.txt'
+  command: '{{ virtualenv_home }}/bin/pip install -r {{ source_home }}/requirements.txt'
 
 - name: template gunicorn
   template: 
@@ -41,10 +41,10 @@
     group: ubuntu
 
 - name: run migrations
-  command: '{{ virtualenv_home }}/bin/python {{ project_home }}/manage.py migrate'
+  command: '{{ virtualenv_home }}/bin/python {{ source_home }}/manage.py migrate'
 
 - name: run collectstatic
-  command: '{{ virtualenv_home }}/bin/python {{ project_home }}/manage.py collectstatic --noinput'
+  command: '{{ virtualenv_home }}/bin/python {{ source_home }}/manage.py collectstatic --noinput'
   when: dh.stat.exists != true
 
 - name: enable and restart gunicorn
