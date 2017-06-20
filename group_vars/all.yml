@@ -6,5 +6,8 @@ project_home: '/home/ubuntu/{{ project_name }}'
 virtualenv_name: xlsform-env
 virtualenv_home: '/home/ubuntu/{{ project_name }}/{{ virtualenv_name }}'
 
-django_name: xlsform
-django_home: '/home/ubuntu/{{ project_name }}/{{ django_name }}'
+source_name: xlsform_example_project
+source_home: '/home/ubuntu/{{ project_name }}/{{ django_name }}'
+
+django_name: xlsform_example_project
+django_home: '{{source_home}}/{{ django_name }}'
