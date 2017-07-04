@@ -1,13 +1,14 @@
 server_name: 192.168.255.10
+django_secret_key: '0'
 
-project_name: xlsform
-project_home: '/home/ubuntu/{{ project_name }}'
+site_name: xlsform
+site_home: '/home/ubuntu/{{ site_name }}'
 
-virtualenv_name: xlsform-env
-virtualenv_home: '/home/ubuntu/{{ project_name }}/{{ virtualenv_name }}'
+virtualenv_name: xlsform_env
+virtualenv_home: '{{ site_home }}/{{ virtualenv_name }}'
 
-source_name: xlsform_example_project
-source_home: '/home/ubuntu/{{ project_name }}/{{ django_name }}'
+source_name: xlsform_src
+source_home: '{{ site_home }}/{{ source_name }}'
 
-django_name: xlsform_example_project
-django_home: '{{source_home}}/{{ django_name }}'
+project_name: xlsform_prj
+project_home: '{{source_home}}/{{ project_name }}'

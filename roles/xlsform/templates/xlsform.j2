@@ -9,6 +9,6 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:{{ source_home }}/{{ django_name }}.sock;
+        proxy_pass http://unix:{{ source_home }}/{{ project_name }}.sock;
     }
 }
