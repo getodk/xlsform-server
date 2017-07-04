@@ -12,5 +12,6 @@ source_home: '{{ site_home }}/{{ source_name }}'
 project_name: xlsform_prj
 project_home: '{{source_home}}/{{ project_name }}'
 
+django_env: '{{ site_home }}/environment'
 django_tmp_home: '/tmp/{{ site_name }}'
 django_secret_key: '0'

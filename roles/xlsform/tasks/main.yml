@@ -35,6 +35,21 @@
     dest: '/etc/nginx/sites-enabled/{{ site_name }}'
     state: link
 
+- name: create env file
+  file:
+    path: '{{ django_env }}'
+    state: touch
+
+- name: set env vars
+  lineinfile:
+      path: '{{ django_env }}'
+      regexp: '{{ item.regexp }}'
+      line: '{{ item.line }}'
+  with_items:
+    - { regexp: '^DJANGO_SECRET_KEY', line: 'DJANGO_SECRET_KEY={{ django_secret_key }}' }
+    - { regexp: '^DJANGO_TMP_HOME', line: 'DJANGO_TMP_HOME={{ django_tmp_home }}' }
+  no_log: true
+
 - name: fix permissions
   file:
     path: '{{ site_home }}'
@@ -43,21 +58,11 @@
     owner: ubuntu
     group: ubuntu
 
-- name: set secret key
-  copy: 
-    content: 'DJANGO_SECRET_KEY={{ django_secret_key }}'
-    dest: '{{ site_home }}/environment'
-
-- name: set tmp home
-  copy: 
-    content: 'DJANGO_TMP_HOME={{ django_tmp_home }}'
-    dest: '{{ site_home }}/environment'
-
 - name: run migrations
-  command: '{{ virtualenv_home }}/bin/python {{ source_home }}/manage.py migrate'
+  shell: 'export $(cat {{ django_env }} | xargs) && {{ virtualenv_home }}/bin/python {{ source_home }}/manage.py migrate'
 
 - name: run collectstatic
-  command: '{{ virtualenv_home }}/bin/python {{ source_home }}/manage.py collectstatic --noinput'
+  shell: 'export $(cat {{ django_env }} | xargs) && {{ virtualenv_home }}/bin/python {{ source_home }}/manage.py collectstatic --noinput'
 
 - name: enable and restart gunicorn
   systemd:
