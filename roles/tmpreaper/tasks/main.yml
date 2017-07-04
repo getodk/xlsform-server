@@ -1,0 +1,17 @@
+
+- name: install packages
+  apt: 
+    pkg: tmpreaper
+
+- name: configure tmpreaper
+  lineinfile:
+    path: /etc/tmpreaper.conf
+    regexp: ^SHOWWARNING=
+    line: '#SHOWWARNING=true'
+
+- name: install tmpreaper cron
+  cron:
+    name: clean-tmp-files
+    minute: 1
+    hour: 0
+    job: 'tmpreaper --mtime-dir --runtime=600 8d {{ tmp_home }}'

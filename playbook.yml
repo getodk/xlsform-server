@@ -11,4 +11,5 @@
     - python-simplejson # required for ansible
     - python3-pip-virtualenv
     - nginx
+    - tmpreaper
     - xlsform
