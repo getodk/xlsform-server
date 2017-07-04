@@ -15,9 +15,9 @@
     - pip
     - virtualenv
 
-- name: create home folder
+- name: create site home folder
   file:
-    path: '{{ project_home }}'
+    path: '{{site_home }}'
     state: directory
 
 - name: install python env packages

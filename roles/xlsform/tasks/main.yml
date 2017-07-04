@@ -5,16 +5,15 @@
   with_items:
     - default-jdk-headless
 
-- name: check django home
+- name: check django project
   stat:
-    path: '{{ django_home }}/'
-  register: dh
-
+    path: '{{ project_home }}'
+  register: ph
 
 - name: create project
   git:
-    repo: "https://github.com/czue/xlsform-example-project.git"
-    dest: "{{ source_home }}"
+    repo: https://github.com/opendatakit/xlsform-django.git
+    dest: '{{ source_home }}'
     force: yes
     recursive: yes
     update: yes
@@ -30,28 +29,32 @@
 - name: template xlsform
   template: 
     src: xlsform.j2
-    dest: '/etc/nginx/sites-available/{{ project_name }}'
+    dest: '/etc/nginx/sites-available/{{ site_name }}'
 
 - name: create nginx link
   file:
-    src: '/etc/nginx/sites-available/{{ project_name }}'
-    dest: '/etc/nginx/sites-enabled/{{ project_name }}'
+    src: '/etc/nginx/sites-available/{{ site_name }}'
+    dest: '/etc/nginx/sites-enabled/{{ site_name }}'
     state: link
 
 - name: fix permissions
   file:
-    path: '{{ project_home }}'
+    path: '{{ site_home }}'
     state: directory
     recurse: yes
     owner: ubuntu
     group: ubuntu
+
+- name: set environment
+  copy: 
+    content: 'DJANGO_SECRET_KEY={{ django_secret_key }}'
+    dest: '{{ site_home }}/environment'
 
 - name: run migrations
   command: '{{ virtualenv_home }}/bin/python {{ source_home }}/manage.py migrate'
 
 - name: run collectstatic
   command: '{{ virtualenv_home }}/bin/python {{ source_home }}/manage.py collectstatic --noinput'
-  when: dh.stat.exists != true
 
 - name: enable and restart gunicorn
   systemd:
