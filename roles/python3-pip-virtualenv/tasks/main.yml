@@ -22,8 +22,6 @@
 
 - name: install python env packages
   pip:
-    name: '{{ item }}'
+    name: gunicorn
     virtualenv: '{{ virtualenv_home }}'
     virtualenv_python: python3
-  with_items:
-    - gunicorn

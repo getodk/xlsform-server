@@ -1,5 +1,4 @@
 server_name: 192.168.255.10
-django_secret_key: '0'
 
 site_name: xlsform
 site_home: '/home/ubuntu/{{ site_name }}'
@@ -12,3 +11,6 @@ source_home: '{{ site_home }}/{{ source_name }}'
 
 project_name: xlsform_prj
 project_home: '{{source_home}}/{{ project_name }}'
+
+django_tmp_home: '/tmp/{{ site_name }}'
+django_secret_key: '0'

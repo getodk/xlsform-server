@@ -1,9 +1,7 @@
 
 - name: install packages
   apt: 
-    pkg: '{{ item }}'
-  with_items:
-    - default-jdk-headless
+    pkg: default-jdk-headless
 
 - name: check django project
   stat:
@@ -45,9 +43,14 @@
     owner: ubuntu
     group: ubuntu
 
-- name: set environment
+- name: set secret key
   copy: 
     content: 'DJANGO_SECRET_KEY={{ django_secret_key }}'
+    dest: '{{ site_home }}/environment'
+
+- name: set tmp home
+  copy: 
+    content: 'DJANGO_TMP_HOME={{ django_tmp_home }}'
     dest: '{{ site_home }}/environment'
 
 - name: run migrations
