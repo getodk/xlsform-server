@@ -1,18 +1,34 @@
-# XLSForm Server
+## Overview
+The `xlsform` server runs [http://xlsform.opendatakit.org](http://xlsform.opendatakit.org). This repo describes how to setup that machine.
 
-This repo lets developers setup an XLSForm server for testing. 
+## 1. Provision a remote machine
+We currently use a small (512MB, 20GB) box running Ubuntu 16.04 LTS on Digital Ocean. We connect via SSH on port 22 with a private key. Passwords are disabled for remote root login.
 
-This server will appear like any other machine on your network. This allows you to connect external devices to test the server. We assume your network hands out IP addresses over DHCP. You can change this behavior in `Vagrantfile`.
+You will need to [create a user](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart) called `ubuntu` for Ansible to use. To ensure the `ubuntu` user can run passwordless sudo, run `sudo visudo` and confirm these lines below are present, in this order, and are not commented out on the remote machine.
 
-Please don't use this server in production. It is not configured to be robust or safe.
+```
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+ubuntu  ALL=(ALL) NOPASSWD: ALL
 
-## Install requirements
-1. Install [ansible](https://docs.ansible.com/ansible/intro_installation.html) v2.3.1.0 or later.
-1. Install [vagrant](https://www.vagrantup.com/docs/installation) v1.9.5 or later.
-	1. Optional: Install [vagrant-cachier](https://github.com/fgrehm/vagrant-cachier) for faster builds.
-1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) v5.1.22 or later.
+# Members of the admin group may gain root privileges
+admin   ALL=(ALL) ALL
+```
 
-## Provision and configure server
-1. Clone this repository.
-1. Run `vagrant up`.
-1. After the server is provisioned, the server will be at [192.168.255.10](http://192.168.255.10)
+You'll also need to setup [create a RSA key pair](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) on the remote machine. Once you do:
+
+1. Copy the `~/.ssh/id_rsa` file to `xlsform-server/secrets/id_rsa` on the local machine. 
+1. Add `id_rsa.pub` to `~/.ssh/authorized_keys` on the remote machine.
+
+## 2. Install software on your local machine
+1. Install [ansible](https://docs.ansible.com/ansible/intro_installation.html) v2.2.0 or later.
+
+## 3. Run ansible to configure remote machine
+1. Clone or download this repo.
+1. Read over `playbook.yml` and the files in `roles/` to understand behavior.
+1. Ensure the correct IP to the machine is in `hosts` file.
+1. Ensure `id_rsa` is in `secrets/`.
+1. In `xlsform-server/`, run `ansible-playbook -i provisioning/hosts provisioning/playbook.yml`.
+
+## Notes
+You may wish to configure ansible to [disable host checking](https://docs.ansible.com/ansible/intro_getting_started.html#host-key-checking) and [disable retry files](https://docs.ansible.com/ansible/intro_configuration.html#retry-files-enabled).
