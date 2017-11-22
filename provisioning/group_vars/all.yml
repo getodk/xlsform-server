@@ -1,4 +1,4 @@
-server_name: 192.168.255.10
+server_name: '{{ inventory_hostname }}'
 
 site_name: xlsform
 site_home: '/home/ubuntu/{{ site_name }}'
@@ -14,4 +14,4 @@ project_home: '{{source_home}}/{{ project_name }}'
 
 django_env: '{{ site_home }}/environment'
 django_tmp_home: '/tmp/{{ site_name }}'
-django_secret_key: '0'
+django_secret_key: "{{ lookup('password', 'secrets/django_secret_key.txt length=50') }}"

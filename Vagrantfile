@@ -28,6 +28,7 @@ Vagrant.configure("2") do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: "192.168.255.10"
+  config.vm.define "192.168.255.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -76,7 +77,7 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook.yml"
+    ansible.playbook = "provisioning/playbook.yml"
     # ansible.verbose = "vvv"
   end
 
