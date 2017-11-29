@@ -50,6 +50,12 @@
     - { regexp: '^DJANGO_TMP_HOME', line: 'DJANGO_TMP_HOME={{ django_tmp_home }}' }
   no_log: true
 
+- name: configure settings.py
+  replace:
+    dest: '{{ project_home }}/settings.py'
+    regexp: '^ALLOWED_HOSTS = .*'
+    replace: "ALLOWED_HOSTS = ['{{ inventory_hostname }}']"
+
 - name: fix permissions
   file:
     path: '{{ site_home }}'
