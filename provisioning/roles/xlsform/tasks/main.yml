@@ -16,6 +16,11 @@
     recursive: yes
     update: yes
 
+- name: create logs folder
+  file:
+    path: '{{ source_home }}/logs'
+    state: directory
+
 - name: install python dependencies
   command: '{{ virtualenv_home }}/bin/pip install -r {{ source_home }}/requirements.txt'
 
