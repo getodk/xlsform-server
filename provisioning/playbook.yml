@@ -9,6 +9,7 @@
   
   roles:
     - python-simplejson # required for ansible
+    - swap
     - python3-pip-virtualenv
     - nginx
     - tmpreaper

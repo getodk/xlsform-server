@@ -1,0 +1,41 @@
+- name: register file (stat)
+  stat:
+    path: /swapfile
+  register: swapfile
+
+- name: create swap file
+  command: fallocate -l 1G /swapfile
+  when: swapfile.stat.exists == False
+
+- name: change swap permissions
+  file: 
+    path: /swapfile
+    mode: 0600
+
+- name: register file (file)
+  command: file /swapfile
+  register: swapfile
+
+- name: make swap
+  command: mkswap /swapfile
+  when: swapfile.stdout.find('swap file') == -1
+
+- name: write swap entry in fstab
+  mount:
+    name: none
+    src: /swapfile
+    fstype: swap
+    opts: sw
+    passno: 0
+    dump: 0
+    state: present
+
+- name: mount swap
+  command: swapon /swapfile
+  ignore_errors: yes
+
+- name: configure vm.swappiness
+  sysctl:
+    name: vm.swappiness
+    value: 10
+    state: present
