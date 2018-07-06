@@ -32,15 +32,19 @@ You'll also need to setup [create a RSA key pair](https://www.digitalocean.com/c
 
 ## 4. Running regular updates
 
-1. To upgrade the operating system, run the following as root:
+To upgrade the operating system, run the following commands as root:
 ```sh
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get auto-remove -y && sudo apt-get clean -y;
+sudo apt-get update;
+sudo apt-get upgrade -y;
+sudo apt-get dist-upgrade -y;
+sudo apt-get auto-remove -y;
+sudo apt-get clean -y;
 ```
-
-1. To upgrade pyxform, run the following as root:
+To upgrade pyxform, run the following commands as root:
 ```sh
 /home/ubuntu/xlsform/xlsform_env/bin/pip3 install --upgrade pyxform;
-systemctl restart gunicorn && systemctl restart nginx;
+systemctl restart gunicorn;
+systemctl restart nginx;
 ```
 
 ## Notes
