@@ -30,5 +30,18 @@ You'll also need to setup [create a RSA key pair](https://www.digitalocean.com/c
 1. Ensure `id_rsa` is in `secrets/`.
 1. In `xlsform-server/`, run `ansible-playbook -i provisioning/hosts provisioning/playbook.yml`.
 
+## 4. Running regular updates
+
+1. To upgrade the operating system, run the following as root:
+```sh
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get auto-remove -y && sudo apt-get clean -y;
+```
+
+1. To upgrade pyxform, run the following as root:
+```sh
+/home/ubuntu/xlsform/xlsform_env/bin/pip3 install --upgrade pyxform;
+systemctl restart gunicorn && systemctl restart nginx;
+```
+
 ## Notes
 You may wish to configure ansible to [disable host checking](https://docs.ansible.com/ansible/intro_getting_started.html#host-key-checking) and [disable retry files](https://docs.ansible.com/ansible/intro_configuration.html#retry-files-enabled).
