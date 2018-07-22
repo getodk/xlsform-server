@@ -46,6 +46,15 @@ To upgrade pyxform, run the following commands as root:
 systemctl restart gunicorn;
 systemctl restart nginx;
 ```
+To discard local changes and upgrade the site to the [xlsform-online repo](https://github.com/opendatakit/xlsform-online), run the following commands as root:
+```sh
+cd /home/ubuntu/xlsform/xlsform_src;
+git clean --force;
+git fetch origin;
+git reset --hard origin/master;
+systemctl restart gunicorn;
+systemctl restart nginx;
+```
 
 ## Notes
 You may wish to configure ansible to [disable host checking](https://docs.ansible.com/ansible/intro_getting_started.html#host-key-checking) and [disable retry files](https://docs.ansible.com/ansible/intro_configuration.html#retry-files-enabled).
