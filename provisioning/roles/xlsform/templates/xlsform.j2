@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name {{ server_name }};
+    server_name {{ inventory_hostname }};
 
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {

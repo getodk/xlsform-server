@@ -1,4 +1,12 @@
 
+- name: install apt repo
+  apt_repository:
+    repo: ppa:certbot/certbot
+
 - name: install packages
   apt: 
-    pkg: nginx
+    update_cache: yes
+    pkg: '{{ item }}'
+  with_items:
+    - nginx
+    - python-certbot-nginx
