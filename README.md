@@ -29,6 +29,7 @@ You'll also need to setup [create a RSA key pair](https://www.digitalocean.com/c
 1. Ensure the correct IP to the machine is in `hosts` file.
 1. Ensure `id_rsa` is in `secrets/`.
 1. In `xlsform-server/`, run `ansible-playbook -i provisioning/hosts provisioning/playbook.yml`.
+1. Follow steps 4 and 5 at [Secure Nginx with Let's Encrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04) to get an SSL cert.
 
 ## 4. Running regular updates
 
