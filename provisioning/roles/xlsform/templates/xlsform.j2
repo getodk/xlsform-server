@@ -1,7 +1,8 @@
 server {
     listen 80;
     server_name {{ inventory_hostname }};
-
+    client_max_body_size 20m;
+    
     location = /favicon.ico { access_log off; log_not_found off; }
     location /static/ {
         root {{ source_home }};
