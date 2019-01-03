@@ -6,7 +6,6 @@
 - name: install packages
   apt: 
     update_cache: yes
-    pkg: '{{ item }}'
-  with_items:
-    - nginx
-    - python-certbot-nginx
+    pkg:
+      - nginx
+      - python-certbot-nginx

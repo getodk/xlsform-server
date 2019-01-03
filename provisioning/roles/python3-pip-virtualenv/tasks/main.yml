@@ -1,19 +1,17 @@
 
 - name: install packages
   apt: 
-    pkg: '{{ item }}'
-  with_items:
-    - python3-dev
-    - python3-pip
+    pkg:
+      - python3-dev
+      - python3-pip
 
 - name: install python packages
   pip:
-    name: '{{ item }}'
+    name:
+      - pip
+      - virtualenv
     extra_args: --upgrade
     executable: pip3
-  with_items:
-    - pip
-    - virtualenv
 
 - name: create site home folder
   file:
