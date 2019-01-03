@@ -8,7 +8,7 @@
   become_user: root
   
   roles:
-    - python-simplejson # required for ansible
+    - python-setuptools
     - swap
     - python3-pip-virtualenv
     - nginx
