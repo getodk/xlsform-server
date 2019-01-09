@@ -2,17 +2,12 @@
 The `xlsform` server runs [http://xlsform.opendatakit.org](http://xlsform.opendatakit.org). This repo describes how to setup that machine.
 
 ## 1. Provision a remote machine
-We currently use a small (512MB, 20GB) box running Ubuntu 16.04 LTS on Digital Ocean. We connect via SSH on port 22 with a private key. Passwords are disabled for remote root login.
+We currently use a small (2 GB, 2 CPU, 20GB) box running Ubuntu 16.04 LTS on Digital Ocean. We connect via SSH on port 22 with a private key. Passwords are disabled for remote root login.
 
-You will need to [create a user](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart) called `ubuntu` for Ansible to use. To ensure the `ubuntu` user can run passwordless sudo, run `sudo visudo` and confirm these lines below are present, in this order, and are not commented out on the remote machine.
+You will need to [create a user](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart) called `ubuntu` for Ansible to use. To ensure the `ubuntu` user can run passwordless sudo, run `sudo visudo` and add this on the last line.
 
 ```
-# User privilege specification
-root    ALL=(ALL:ALL) ALL
 ubuntu  ALL=(ALL) NOPASSWD: ALL
-
-# Members of the admin group may gain root privileges
-admin   ALL=(ALL) ALL
 ```
 
 You'll also need to setup [create a RSA key pair](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) on the remote machine. Once you do:
