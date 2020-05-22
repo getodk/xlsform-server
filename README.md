@@ -1,5 +1,5 @@
 ## Overview
-The `xlsform` server runs [http://xlsform.opendatakit.org](http://xlsform.opendatakit.org). This repo describes how to setup that machine.
+The `xlsform` server runs [https://xlsform.getodk.org](https://xlsform.getodk.org). This repo describes how to setup that machine.
 
 ## 1. Provision a remote machine
 We currently use a small (2 GB, 2 CPU, 20GB) box running Ubuntu 16.04 LTS on Digital Ocean. We connect via SSH on port 22 with a private key. Passwords are disabled for remote root login.
@@ -42,7 +42,7 @@ To upgrade pyxform, run the following commands as root:
 systemctl restart gunicorn;
 systemctl restart nginx;
 ```
-To discard local changes and upgrade the site to the [xlsform-online repo](https://github.com/opendatakit/xlsform-online), run the following commands as root:
+To discard local changes and upgrade the site to the [xlsform-online repo](https://github.com/getodk/xlsform-online), run the following commands as root:
 ```sh
 cd /home/ubuntu/xlsform/xlsform_src;
 git clean --force;
