@@ -1,7 +1,0 @@
----
-
-- name: raw update 
-  raw: sudo apt-get update
-
-- name: raw install
-  raw: sudo apt-get -y install python-setuptools

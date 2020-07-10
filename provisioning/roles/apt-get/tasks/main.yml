@@ -1,0 +1,7 @@
+---
+
+- name: package update 
+  raw: apt-get update
+
+- name: package upgrade 
+  raw: apt-get upgrade -y

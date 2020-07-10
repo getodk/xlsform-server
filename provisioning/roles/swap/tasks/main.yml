@@ -26,8 +26,8 @@
     src: /swapfile
     fstype: swap
     opts: sw
-    passno: 0
-    dump: 0
+    passno: "0"
+    dump: "0"
     state: present
 
 - name: mount swap
@@ -37,5 +37,5 @@
 - name: configure vm.swappiness
   sysctl:
     name: vm.swappiness
-    value: 10
+    value: "10"
     state: present

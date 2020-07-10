@@ -1,5 +1,7 @@
 server_name: '{{ inventory_hostname }}'
 
+# certbot_email: 'getodk@example.org'
+
 site_name: xlsform
 site_home: '/home/ubuntu/{{ site_name }}'
 

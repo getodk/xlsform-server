@@ -12,6 +12,6 @@
 - name: install tmpreaper cron
   cron:
     name: clean-tmp-files
-    minute: 1
-    hour: 0
+    minute: "1"
+    hour: "0"
     job: '/usr/sbin/tmpreaper --mtime-dir --runtime=600 30d {{ django_tmp_home }}'

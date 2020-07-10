@@ -2,7 +2,7 @@
 The `xlsform` server runs [https://xlsform.getodk.org](https://xlsform.getodk.org). This repo describes how to setup that machine.
 
 ## 1. Provision a remote machine
-We currently use a small (2 GB, 2 CPU, 20GB) box running Ubuntu 16.04 LTS on Digital Ocean. We connect via SSH on port 22 with a private key. Passwords are disabled for remote root login.
+We currently use a small (2 GB, 2 CPU, 20 GB) box running Ubuntu 18 LTS on Digital Ocean. We connect via SSH on port 22 with a private key. Passwords are disabled for remote root login.
 
 You will need to [create a user](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart) called `ubuntu` for Ansible to use. To ensure the `ubuntu` user can run passwordless sudo, run `sudo visudo` and add this on the last line.
 
@@ -21,10 +21,9 @@ You'll also need to setup [create a RSA key pair](https://www.digitalocean.com/c
 ## 3. Run ansible to configure remote machine
 1. Clone or download this repo.
 1. Read over `playbook.yml` and the files in `roles/` to understand behavior.
-1. Ensure the correct IP to the machine is in `hosts` file.
+1. Ensure the correct fully qualified hostname (not IP) to the machine is in `hosts` file.
 1. Ensure `id_rsa` is in `secrets/`.
 1. In `xlsform-server/`, run `ansible-playbook -i provisioning/hosts provisioning/playbook.yml`.
-1. Follow steps 4 and 5 at [Secure Nginx with Let's Encrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04) to get an SSL cert.
 
 ## 4. Running regular updates
 
@@ -54,3 +53,5 @@ systemctl restart nginx;
 
 ## Notes
 You may wish to configure ansible to [disable host checking](https://docs.ansible.com/ansible/intro_getting_started.html#host-key-checking) and [disable retry files](https://docs.ansible.com/ansible/intro_configuration.html#retry-files-enabled).
+
+If file transfers over SSH/SCP/SFTP fail for unexplainable reasons, try switching to [paramiko](https://docs.ansible.com/ansible/latest/plugins/connection/paramiko_ssh.html)
