@@ -10,7 +10,7 @@
 
 - name: create project
   git:
-    repo: https://github.com/opendatakit/xlsform-online.git
+    repo: https://github.com/getodk/xlsform-online.git
     dest: '{{ source_home }}'
     force: yes
     recursive: yes
