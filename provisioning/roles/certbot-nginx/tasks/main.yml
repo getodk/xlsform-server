@@ -1,0 +1,15 @@
+
+- name: install apt repo
+  apt_repository:
+    repo: ppa:certbot/certbot
+    update_cache: yes
+
+- name: install packages
+  apt: 
+    pkg:
+      - nginx
+      - python-certbot-nginx
+
+- name: install ssl cert
+  raw: certbot --nginx --non-interactive --agree-tos -m {{ certbot_email }} -d {{ inventory_hostname }}
+  when: certbot_domain is defined and certbot_email is defined
