@@ -7,7 +7,7 @@ User=ubuntu
 Group=www-data
 WorkingDirectory={{ source_home }}
 EnvironmentFile={{ site_home }}/environment
-ExecStart={{ virtualenv_home }}/bin/gunicorn --access-logfile - --workers 5 --timeout 600 --bind unix:{{ source_home }}/{{ project_name }}.sock {{ project_name }}.wsgi:application
+ExecStart={{ virtualenv_home }}/bin/gunicorn --access-logfile - --workers 5 --max-requests 25 --max-requests-jitter 5 --timeout 600 --bind unix:{{ source_home }}/{{ project_name }}.sock {{ project_name }}.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
